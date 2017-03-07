@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -19,12 +21,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Registration.SelectTrustedContacts"
-            android:label="@string/select_contact"
-            android:theme="@style/AppTheme" />
+            android:name=".Registration.SelectTrustedContactsActivity"
+        />
         <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".Registration.RegisterActivity" />
+        <activity android:name=".Registration.SignUpActivity" />
+        <activity android:name=".Registration.ConfirmationActivity" />
         <activity android:name=".Home.HomeActivity"></activity>
+        <activity android:name=".Home.EditProfileActivity"></activity>
+
     </application>
 
 </manifest>

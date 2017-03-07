@@ -6,8 +6,27 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="@color/white"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.sharekeg.streetpal.Home.HomeActivity">
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_logo"
+        android:layout_centerInParent="true"
+        android:id="@+id/imageView" />
+
+    <Button
+        android:id="@+id/btnedtitprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="Edit Profile"
+        android:layout_above="@+id/imageView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

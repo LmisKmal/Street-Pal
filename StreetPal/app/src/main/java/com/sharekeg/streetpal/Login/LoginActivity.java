@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.sharekeg.streetpal.Androidversionapi.ApiInterface;
 import com.sharekeg.streetpal.Home.HomeActivity;
 import com.sharekeg.streetpal.R;
-import com.sharekeg.streetpal.Registration.SelectTrustedContacts;
+import com.sharekeg.streetpal.Registration.SelectTrustedContactsActivity;
+import com.sharekeg.streetpal.Registration.SignUpActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SelectTrustedContacts.class);
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(i);
             }
         });

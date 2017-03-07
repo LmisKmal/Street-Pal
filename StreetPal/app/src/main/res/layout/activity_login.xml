@@ -75,7 +75,7 @@
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="23dp"
             android:background="@color/orange"
             android:text="@string/login"
             android:textAllCaps="false"
@@ -84,7 +84,7 @@
         <!-- Link to Registration Screen -->
         <TextView
             android:id="@+id/link_to_register"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="40dip"
@@ -92,7 +92,7 @@
             android:gravity="center"
             android:text="@string/register_txt"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
 
     </LinearLayout>
 

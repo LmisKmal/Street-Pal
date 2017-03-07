@@ -10,6 +10,8 @@
     <color name="orange">#fbaf5d</color>
     <color name="whitegrey">#f8bebdbc</color>
     <color name="splash_color">#1f1f1f</color>
-
+    <color name="gray">#edeaea</color>
+    <color name="Darkgray">#646363</color>
+    <color name="Green">#4eb96a</color>
 
 </resources>
