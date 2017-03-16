@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/bg" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/IV_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -44,7 +44,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/ic_change_profile_img"
             android:gravity="center_horizontal"
-            android:textSize="12dp"
+            android:textSize="13dp"
 
             />
 
@@ -67,7 +67,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/TV_upload"
             android:layout_marginTop="5dp"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <EditText
@@ -77,6 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Username"
+                android:padding="10dp"
+                android:background="@color/white"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="12dp" />
@@ -86,6 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail Address"
+                android:padding="10dp"
+
+                android:background="@color/white"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
@@ -97,6 +101,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Phone number"
                 android:inputType="phone"
+                android:background="@color/white"
+                android:padding="10dp"
+
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="12dp" />
@@ -106,6 +113,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:background="@color/white"
+                android:padding="10dp"
+
                 android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
@@ -130,21 +140,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_info"
             android:layout_marginTop="5dp"
-            android:background="@color/white">
+            >
 
-            <EditText
+            <TextView
                 android:id="@+id/TV_sex"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/etage"
                 android:hint="Sex"
-                android:layout_marginLeft="100dp"
+                android:background="@color/white"
+                android:padding="10dp"
                 android:textColorHint="@color/gray"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
 
             <Spinner
                 android:id="@+id/spinner"
+                android:padding="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -158,6 +170,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/etage"
                 android:hint="Work"
+                android:background="@color/white"
+                android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="12dp"
@@ -171,6 +185,8 @@
                 android:layout_below="@+id/etWork"
                 android:hint="National ID"
                 android:inputType="number"
+                android:background="@color/white"
+                android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:textSize="12dp" />
@@ -190,11 +206,13 @@
 
             <EditText
                 android:id="@+id/etage"
-                android:layout_width="170dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:hint="Age"
+                android:background="@color/white"
+                android:padding="10dp"
                 android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
@@ -216,6 +234,7 @@
             android:background="@drawable/signupbtn"
             android:gravity="center"
             android:text="Sign Up"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12dp" />
 

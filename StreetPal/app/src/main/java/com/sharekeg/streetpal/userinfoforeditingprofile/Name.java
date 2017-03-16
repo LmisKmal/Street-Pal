@@ -1,13 +1,15 @@
+package com.sharekeg.streetpal.userinfoforeditingprofile;
 
-package com.sharekeg.streetpal.userinfo;
-
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Name implements Serializable
-{
+import java.io.Serializable;
 
+/**
+ * Created by HP on 03/03/17.
+ */
+
+public class Name implements Serializable {
     @SerializedName("first")
     @Expose
     private String first;
@@ -17,7 +19,7 @@ public class Name implements Serializable
     @SerializedName("last")
     @Expose
     private String last;
-    private final static long serialVersionUID = 761459856126676600L;
+    private final static long serialVersionUID = 936795112756721890L;
 
     public String getFirst() {
         return first;
@@ -42,5 +44,4 @@ public class Name implements Serializable
     public void setLast(String last) {
         this.last = last;
     }
-
 }

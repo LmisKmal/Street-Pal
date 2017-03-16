@@ -23,16 +23,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sharekeg.streetpal.Androidversionapi.ApiInterface;
-import com.sharekeg.streetpal.Data.UsersInfoForSignUp;
+import com.sharekeg.streetpal.Home.EditProfileActivity;
+import com.sharekeg.streetpal.userinfoforsignup.UsersInfoForSignUp;
 import com.sharekeg.streetpal.Login.LoginActivity;
 import com.sharekeg.streetpal.R;
 
 import java.io.File;
+import java.io.IOException;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,9 +52,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     private static String fileNationaPhotoPath = null;
     private static String fileProfiePhotoPath = null;
     private static final int REQUEST_TAKE_National_Id_PHOTO = 1;
-    private static int RESULT_LOAD_National_Id_IMAGE = 1;
-
-    private TextView tvback, TV_upload;
+    private static int RESULT_LOAD_National_Card_IMAGE = 1;
+    private TextView tvback, TV_upload, TV_sex;
     private int REQUEST_TAKE_profile_PHOTO = 2;
     private int RESULT_LOAD_profile_IMAGE = 2;
 
@@ -78,11 +77,10 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         etUserName = (EditText) findViewById(R.id.etuserName);
         etPhone = (EditText) findViewById(R.id.etphone);
         etNationalId = (EditText) findViewById(R.id.etnationalid);
-        etGender = (EditText) findViewById(R.id.TV_sex);
+        TV_sex = (TextView) findViewById(R.id.TV_sex);
         IV_profile = (ImageView) findViewById(R.id.IV_profile);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
-        TV_upload = (TextView) findViewById(R.id.TV_upload);
         tvback = (TextView) findViewById(R.id.tvback);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         btn_UploadNationalCard = (Button) findViewById(R.id.btn_UploadNationalCard);
@@ -90,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         tvback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SignUpActivity.this, LoginActivity.class);
+                Intent i = new Intent(SignUpActivity.this, EditProfileActivity.class);
                 startActivity(i);
             }
         });
@@ -101,7 +99,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
                 attemptSignUp();
                 // pDialog.show();
-
 
 
             }
@@ -124,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                                     Intent intent = new Intent(
                                             Intent.ACTION_PICK,
                                             MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    startActivityForResult(intent, RESULT_LOAD_National_Id_IMAGE);
+                                    startActivityForResult(intent, RESULT_LOAD_National_Card_IMAGE);
 
                                 }
 
@@ -135,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
 
-        TV_upload
+        IV_profile
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -206,7 +203,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         userName = etUserName.getText().toString();
         password = etPassword.getText().toString();
         email = etEmail.getText().toString();
-        gender = etGender.getText().toString();
         phone = etPhone.getText().toString();
         age = etAge.getText().toString();
         nationalId = etNationalId.getText().toString();
@@ -220,32 +216,28 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         }
         if (TextUtils.isEmpty(age)) {
             etAge.setError("Empty age");
-            focusView = etEmail;
+            focusView = etAge;
             cancel = true;
         }
-        if (TextUtils.isEmpty(gender)) {
-            etGender.setError("Empty gender");
-            focusView = etEmail;
-            cancel = true;
-        }
+
         if (TextUtils.isEmpty(work)) {
             etWork.setError("Empty work");
-            focusView = etEmail;
+            focusView = etWork;
             cancel = true;
         }
         if (TextUtils.isEmpty(nationalId)) {
-            etNationalId.setError("Empty email");
-            focusView = etEmail;
+            etNationalId.setError("Empty nationalId");
+            focusView = etNationalId;
             cancel = true;
         }
         if (TextUtils.isEmpty(phone)) {
             etPhone.setError("Empty phone");
-            focusView = etEmail;
+            focusView = etPhone;
             cancel = true;
         }
         if (TextUtils.isEmpty(userName)) {
-            etUserName.setError("Empty phone");
-            focusView = etEmail;
+            etUserName.setError("Empty UserName");
+            focusView = etUserName;
             cancel = true;
         }
         if (TextUtils.isEmpty(email)) {
@@ -299,59 +291,66 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     private void uploadProfilePhoto(final String fileProfiePhotoPath) {
+
+
         File file = new File(fileProfiePhotoPath);
+        RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), file);
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+// Synchronous.
+        try {
+            Response<RequestBody> response = apiInterface.uploadprofilePhoto(photoBody).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-        Call<ResponseBody> req = apiInterface.postImage(body, name);
-        req.enqueue(new Callback<ResponseBody>() {
+// Asynchronous.
+        apiInterface.uploadprofilePhoto(photoBody).enqueue(new Callback<RequestBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+            public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-//                Snackbar.make(btnSignUp, "Failed to upload Profile Photo", Snackbar.LENGTH_INDEFINITE).setAction("Try Again", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        uploadProfilePhoto(fileProfiePhotoPath);
-//
-//                    }
-//                }).show();
+            public void onFailure(Call<RequestBody> call, Throwable t) {
+                Snackbar.make(btnSignUp, "Failed to upload Profile-Photo", Snackbar.LENGTH_INDEFINITE).setAction("Try Again", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        uploadProfilePhoto(fileProfiePhotoPath);
+                        //pDialog.show();
+                    }
+                }).show();
             }
         });
+
+
     }
 
     private void uploadNationalIdPhoto(final String fileNationaPhotoPath) {
         File file = new File(fileNationaPhotoPath);
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+        RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), file);
 
+// Synchronous.
+        try {
+            Response<RequestBody> response = apiInterface.uploadNationalIdPhoto(photoBody).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        Call<ResponseBody> req = apiInterface.postImage(body, name);
-        req.enqueue(new Callback<ResponseBody>() {
+// Asynchronous.
+        apiInterface.uploadprofilePhoto(photoBody).enqueue(new Callback<RequestBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(SignUpActivity.this, "Sucess", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<RequestBody> call, Response<RequestBody> response) {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Snackbar.make(btnSignUp, "Failed to upload National-Id-Photo", Snackbar.LENGTH_INDEFINITE).setAction("Try Again", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        uploadNationalIdPhoto(fileNationaPhotoPath);
-//                        //pDialog.show();
-//                    }
-//                }).show();
-
+            public void onFailure(Call<RequestBody> call, Throwable t) {
+                Snackbar.make(btnSignUp, "Failed to upload National-Id-Photo", Snackbar.LENGTH_INDEFINITE).setAction("Try Again", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        uploadNationalIdPhoto(fileNationaPhotoPath);
+                        //pDialog.show();
+                    }
+                }).show();
             }
         });
 
@@ -362,74 +361,90 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (requestCode == REQUEST_TAKE_National_Id_PHOTO && resultCode == RESULT_OK && null != data) {
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-        if (requestCode == REQUEST_TAKE_National_Id_PHOTO && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                cursor.moveToFirst();
 
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            fileNationaPhotoPath = cursor.getString(columnIndex);
-            cursor.close();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                fileNationaPhotoPath = cursor.getString(columnIndex);
+                cursor.close();
+                Toast.makeText(this, "National Card  is uploaded Successfully", Toast.LENGTH_LONG).show();
 
 
+            }
+            if (requestCode == RESULT_LOAD_National_Card_IMAGE && resultCode == Activity.RESULT_OK) {
+
+                Uri selectedImage = data.getData();
+
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                if (cursor == null)
+                    return;
+
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                fileNationaPhotoPath = cursor.getString(columnIndex);
+                cursor.close();
+                Toast.makeText(this, "National Card is uploaded Successfully", Toast.LENGTH_LONG).show();
+
+
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_LONG).show();
         }
-        if (requestCode == RESULT_LOAD_National_Id_IMAGE && resultCode == Activity.RESULT_OK) {
+        try {
+            if (requestCode == REQUEST_TAKE_profile_PHOTO && resultCode == RESULT_OK && null != data) {
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            if (cursor == null)
-                return;
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                cursor.moveToFirst();
 
-            cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                fileProfiePhotoPath = cursor.getString(columnIndex);
+                cursor.close();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            fileNationaPhotoPath = cursor.getString(columnIndex);
-            cursor.close();
-
-
-        }
-        if (requestCode == REQUEST_TAKE_profile_PHOTO && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            fileProfiePhotoPath = cursor.getString(columnIndex);
-            cursor.close();
+                IV_profile.setImageURI(selectedImage);
+                Toast.makeText(this, "profile Photo is uploaded Successfully", Toast.LENGTH_LONG).show();
 
 
-        }
-        if (requestCode == RESULT_LOAD_profile_IMAGE && resultCode == Activity.RESULT_OK) {
+            }
+            if (requestCode == RESULT_LOAD_profile_IMAGE && resultCode == Activity.RESULT_OK) {
 
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            if (cursor == null)
-                return;
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                if (cursor == null)
+                    return;
 
-            cursor.moveToFirst();
+                cursor.moveToFirst();
 
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            fileProfiePhotoPath = cursor.getString(columnIndex);
-            cursor.close();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                fileProfiePhotoPath = cursor.getString(columnIndex);
+                cursor.close();
+
+                IV_profile.setImageURI(selectedImage);
+                Toast.makeText(this, "profile Photo is uploaded Successfully", Toast.LENGTH_LONG).show();
 
 
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = spinner.getSelectedItem().toString();
-        etGender.setText(text);
-        etGender.getText();
+        TV_sex.setText(text);
+        TV_sex.getText();
 
     }
 

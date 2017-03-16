@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,9 +29,11 @@ import com.sharekeg.streetpal.Home.HomeActivity;
 import com.sharekeg.streetpal.R;
 
 public class SelectTrustedContactsActivity extends AppCompatActivity {
-    Button btnSelectContact;
-    ImageView imageView;
-    TextView tvname, tvnumber, fname;
+   private Button btnSelectContact;
+   private ImageView imageView;
+   private TextView tvname, tvnumber, fname;
+    private String number;
+
 
 
     private static final String TAG = SelectTrustedContactsActivity.class.getSimpleName();
@@ -52,24 +55,47 @@ public class SelectTrustedContactsActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(SelectTrustedContactsActivity.this)
-                        .setTitle("Select Contact")
-                        .setMessage("Are you sure you want to select this contact?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                if (TextUtils.isEmpty(number)){
+                    new AlertDialog.Builder(SelectTrustedContactsActivity.this)
+                            .setTitle("Select Contact")
+                            .setMessage("Are you sure you want to pass anyway without selecting a contact?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 //                                Toast.makeText(SelectTrustedContactsActivity.this, "Contact selected", Toast.LENGTH_SHORT).show();
-                                Intent i =new Intent(SelectTrustedContactsActivity.this, HomeActivity.class);
-                                startActivity(i);
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                                    Intent i =new Intent(SelectTrustedContactsActivity.this, HomeActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .show();
+
+                }else if(!TextUtils.isEmpty(number)){
+                    new AlertDialog.Builder(SelectTrustedContactsActivity.this)
+                            .setTitle("Select Contact")
+                            .setMessage("Are you sure you want to select this contact?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(SelectTrustedContactsActivity.this, "Contact selected", Toast.LENGTH_SHORT).show();
+                                    Intent i =new Intent(SelectTrustedContactsActivity.this, HomeActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .show();
+                }
+
             }
         });
         btnSelectContact = (Button) findViewById(R.id.btnselectcontact);
@@ -206,6 +232,7 @@ public class SelectTrustedContactsActivity extends AppCompatActivity {
 
         cursorPhone.close();
         tvnumber.setText(contactNumber);
+        number=tvname.getText().toString();
 
     }
 

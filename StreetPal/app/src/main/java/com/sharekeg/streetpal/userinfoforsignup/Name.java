@@ -1,4 +1,4 @@
-package com.sharekeg.streetpal.Data;
+package com.sharekeg.streetpal.userinfoforsignup;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

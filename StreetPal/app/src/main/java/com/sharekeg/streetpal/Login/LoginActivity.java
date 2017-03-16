@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
     private ApiInterface getInterfaceService() {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.36/v0/")
+                .baseUrl("http://10.27.27.86/v0/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final ApiInterface mInterfaceService = retrofit.create(ApiInterface.class);

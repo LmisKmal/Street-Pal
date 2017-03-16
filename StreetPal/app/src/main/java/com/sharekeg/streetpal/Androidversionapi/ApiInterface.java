@@ -1,6 +1,7 @@
 package com.sharekeg.streetpal.Androidversionapi;
 
-import com.sharekeg.streetpal.Data.UsersInfoForSignUp;
+import com.sharekeg.streetpal.userinfoforeditingprofile.UsersInfoForEditingProfile;
+import com.sharekeg.streetpal.userinfoforsignup.UsersInfoForSignUp;
 import com.sharekeg.streetpal.Login.LoginCredentials;
 import com.sharekeg.streetpal.userinfoforlogin.UserInfoForLogin;
 
@@ -34,16 +35,20 @@ public interface ApiInterface
 
     @GET("me")
     Call<UserInfoForLogin> getUser(@Header("Authorization") String token);
-
+    @GET("me")
+    Call<UserInfoForLogin> displayUserInfo();
 
     @POST("user")
     Call<UsersInfoForSignUp> insertUserinfo(@Body UsersInfoForSignUp usersInfoForSignUp);
 
+    @POST("user")
+    Call<UsersInfoForEditingProfile> editCurrentUser(@Body UsersInfoForEditingProfile usersInfoForEditingProfile);
+
     @Multipart
     @POST("me/national-id")
-    Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
+    Call<RequestBody> uploadNationalIdPhoto(@Part("file\"; filename=\"my_image.jpg\" ") RequestBody image);
 
     @Multipart
     @POST("me/photo")
-    Call<RequestBody> uploadPhoto();
+    Call<RequestBody> uploadprofilePhoto(@Part("file\"; filename=\"my_image.jpg\" ") RequestBody image);
 }

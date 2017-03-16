@@ -1,4 +1,4 @@
-package com.sharekeg.streetpal.Data;
+package com.sharekeg.streetpal.userinfoforeditingprofile;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by HP on 03/03/17.
  */
 
-public class UsersInfoForSignUp implements Serializable {
+public class UsersInfoForEditingProfile implements Serializable {
 
     @SerializedName("user")
     @Expose
@@ -20,18 +20,12 @@ public class UsersInfoForSignUp implements Serializable {
     @SerializedName("name")
     @Expose
     private Name name;
-    @SerializedName("gender")
-    @Expose
-    private String gender;
-    @SerializedName("national-id")
-    @Expose
-    private String nationalId;
     @SerializedName("email")
     @Expose
     private String email;
     private final static long serialVersionUID = 6935504488740568606L;
 
-    public UsersInfoForSignUp(String email, String userName, String phone, String age, String nationalId, String gender, String work, String password) {
+    public UsersInfoForEditingProfile(String email, String userName, String phone, String age, String work, String password) {
     }
 
     public String getUser() {
@@ -58,21 +52,6 @@ public class UsersInfoForSignUp implements Serializable {
         this.name = name;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getNationalId() {
-        return nationalId;
-    }
-
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
-    }
 
     public String getEmail() {
         return email;

@@ -27,18 +27,17 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+      //  token = getIntent().getExtras().getString("Token");
         btnEditProfile=(Button)findViewById(R.id.btnedtitprofile);
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(HomeActivity.this,EditProfileActivity.class);
+                Intent i = new Intent(HomeActivity.this, EditProfileActivity.class);
+//                i.putExtra("Token", token);
                 startActivity(i);
             }
         });
-        Toast.makeText(this, "SignUp Completed!", Toast.LENGTH_SHORT).show();
 
-//        token = getIntent().getExtras().getString("Token");
 //
 //        Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("http://192.168.1.36/v0/")

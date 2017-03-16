@@ -23,7 +23,7 @@
             android:layout_marginLeft="13dp"
             android:text="@string/back_button"
             android:textColor="#1f1f1f"
-            android:textSize="12dp" />
+            android:textSize="13dp" />
 
         <ImageView
             android:id="@+id/settingsImgId"
@@ -100,6 +100,7 @@
             android:background="#fff"
             android:hint="@string/mail_hint"
             android:textColor="#1f1f1f"
+            android:inputType="textEmailAddress"
             android:textColorHint="#c1c0c0"
             android:textSize="12dp" />
 
@@ -114,12 +115,13 @@
             android:background="#fff"
             android:hint="@string/phone_number_hint"
             android:textColor="#1f1f1f"
+            android:inputType="phone"
             android:textColorHint="#c1c0c0"
             android:textSize="12dp"
 
             />
 
-        <EditText
+        <TextView
 
             android:id="@+id/sexEditTextId"
             android:layout_width="match_parent"
@@ -130,7 +132,8 @@
             android:layout_marginTop="1dp"
             android:background="#fff"
             android:hint="@string/sex_hint"
-            android:textColor="#c1c0c0"
+            android:paddingTop="8dp"
+            android:textColor="@color/black"
             android:textColorHint="#c1c0c0"
             android:textSize="12sp" />
 
@@ -145,6 +148,7 @@
             android:background="#fff"
             android:hint="@string/age_hint"
             android:textColor="#1f1f1f"
+            android:inputType="number"
             android:textColorHint="#c1c0c0"
             android:textSize="12dp" />
 
@@ -175,6 +179,7 @@
             android:background="#fff"
             android:hint="@string/national_id_hint"
             android:paddingTop="10dp"
+            android:inputType="number"
             android:textColor="#1f1f1f"
             android:textColorHint="#c1c0c0"
             android:textSize="12dp" />
